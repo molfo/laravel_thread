@@ -5,7 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-//use Illuminate\Support\Str;
+use Illuminate\Support\Str;
+
+//fakerのeroquent
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -23,6 +26,16 @@ class UserSeeder extends Seeder
                 //Bcrypt is required to register the password.
                 'password' => bcrypt('test' . $number . "pass"),
             ]);
+
+            // $faker = \Faker\Factory::create();
+            // // Create 10 message records
+            // for ($i = 0; $i < 10; $i++) {
+            //     User::create([
+            //         'name' => $faker->name(),
+            //         'email' => $faker->unique()->email,
+            //         'password' => $faker->password,
+            //         // 'remember_token' => Str::random(100),
+            //     ]);
         }
     }
 }

@@ -14,4 +14,13 @@
             </div>
         </div>
     </div>
+
+    <div class="ml-12">
+        <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+            <a href="https://laravel.bigcartel.com" class="ml-1 underline">
+                User infomationm
+            </a>
+        </div>
+    </div>
+
 </x-app-layout>

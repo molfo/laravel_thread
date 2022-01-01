@@ -8,6 +8,10 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+//createTokenのため（ログオン時の$requestがemail,passwordのみのため）
+// use Illuminate\Support\Facades\DB;
+// use App\Models\User;
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -28,11 +32,37 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+
         $request->authenticate();
 
+        // $token = $request->user();
+        // $token = $request->user()->createToken();
+
+        // return ['token' => $token->plainTextToken];
+
+        //regenerateされたトークンを取得し、各種APIに渡す
+        //コメントアウトしないとページ遷移する
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = Auth::user();
+        $token = $user->createToken('Laravel Password Grant Client');
+        //return ['token' => $token->plainTextToken];
+        $userToken = $user->tokens()->latest()->first();
+        // return $userToken;
+        return redirect('')
+
+        //$password = $request->input('password');
+        //$user = DB::table('users')->where('password', $password)->first();
+
+        //公式より
+        //$token = $request->user()->createToken($request->token_name);
+
+        //$response = ['test' => $request->User()];
+        //$response = ['token' => $token->plainTextToken];
+
+        //return redirect()->intended(RouteServiceProvider::HOME);
+        // return response($response, 200);
+
     }
 
     /**
