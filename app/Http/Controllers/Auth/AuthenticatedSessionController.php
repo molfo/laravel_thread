@@ -8,10 +8,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-//createTokenのため（ログオン時の$requestがemail,passwordのみのため）
-// use Illuminate\Support\Facades\DB;
-// use App\Models\User;
-
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -32,13 +28,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-
         $request->authenticate();
-
-        // $token = $request->user();
-        // $token = $request->user()->createToken();
-
-        // return ['token' => $token->plainTextToken];
 
         //regenerateされたトークンを取得し、各種APIに渡す
         //コメントアウトしないとページ遷移する
@@ -53,12 +43,6 @@ class AuthenticatedSessionController extends Controller
             'user' => $user,
             'token' => $token->plainTextToken
         ]);
-
-
-        // return view('/APIToken', [
-        //     'user' => $user,
-        //     'token' => $token
-        // ]);
 
         //$password = $request->input('password');
         //$user = DB::table('users')->where('password', $password)->first();
