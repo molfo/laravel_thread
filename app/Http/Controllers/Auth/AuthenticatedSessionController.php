@@ -35,6 +35,12 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
+
+        // 作成済みのAPIトークンを削除
+        if ($user->tokens()) {
+            $user->tokens()->delete();
+        }
+
         $token = $user->createToken('Laravel Password Grant Client');
         //return ['token' => $token->plainTextToken];
         $userToken = $user->tokens()->latest()->first();

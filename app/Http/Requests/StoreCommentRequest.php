@@ -8,7 +8,7 @@ class StoreCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
+     * ユーザーがメゾッドの実行権限を持っているか判定
      * @return bool
      */
     public function authorize()
