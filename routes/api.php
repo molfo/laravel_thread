@@ -26,5 +26,7 @@ Route::middleware('auth:sanctum')->get('/Profile', [UserController::class, 'inde
 
 //comment投稿
 Route::middleware('auth:sanctum')->post('comment', [CommentController::class, 'store']);
+
+Route::middleware('auth:sanctum')->get('comment', [CommentController::class, 'index'])->name('api.comment');
     // ->only('store');
 // $token = $request->user()->createToken();

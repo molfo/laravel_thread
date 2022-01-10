@@ -6,6 +6,11 @@ use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
+
 class CommentController extends Controller
 {
     /**
@@ -15,6 +20,8 @@ class CommentController extends Controller
      */
     public function index()
     {
+        $comments = Comment::orderBy('created_at', 'desc')->paginate(10);
+        return view('comment', ['comments' => $comments]);
     }
 
     /**
@@ -35,7 +42,15 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        return $request;
+
+        $comment = Comment::create([
+            'comment' => $request->comment,
+            'user_id' => Auth::user()->id,
+        ]);
+
+
+        // リダイレクトで既存スレッドを更新
+        return redirect()->route('api.comment');
     }
 
     /**

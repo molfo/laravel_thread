@@ -24,6 +24,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/comment', function () {
     return view('comment');
-});
+    // ->with('comments', [CommentController::class, 'store']);
+})->middleware(['auth'])->name('comment');
 
 require __DIR__ . '/auth.php';

@@ -20,7 +20,7 @@
 <body>
     <!-- Comment form -->
     <section>
-        <form action="{{ route('', ) }}" method="POST" class="">
+        <form action="{{ url('/api/Comment') }}" method="POST">
             @csrf
             <label for="comment">Comment</label><br>
             <textarea id="comment" name="comment" cols="30" rows="4"></textarea>
@@ -32,16 +32,19 @@
     <section>
         @if ($comments->count())
         @foreach ($comments as $comment)
-        <div class="post" id={{id}}>
+        <div class="post" id={{$comment->id}}>
             <div class="meta">
-                <span class="number">{{id}}</span>
-                <span class="username">
-                    <b>{{username}}</b>
+                <span class="number">{{$comment->id}}</span>
+                <span class="user_id">
+                    <b>{{$comment->user_id}}</b>
                 </span>
-                <span class="date">{{created_at}}</span>
+                <span class="username">
+                    <b>{{$comment->user->name}}</b>
+                </span>
+                <span class="date">{{$comment->created_at}}</span>
             </div>
             <div class="comments">
-                {{$comment}}
+                {{$comment->comment}}
             </div>
         </div>
         @endforeach

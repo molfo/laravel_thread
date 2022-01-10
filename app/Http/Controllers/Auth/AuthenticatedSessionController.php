@@ -43,7 +43,7 @@ class AuthenticatedSessionController extends Controller
 
         $token = $user->createToken('Laravel Password Grant Client');
         //return ['token' => $token->plainTextToken];
-        $userToken = $user->tokens()->latest()->first();
+        // $userToken = $user->tokens()->latest()->first();
 
         return view('APIToken', [
             'user' => $user,
