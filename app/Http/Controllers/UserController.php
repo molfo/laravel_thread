@@ -20,7 +20,7 @@ class UserController extends Controller
         // 認証しているユーザー情報を取得。
         $user = Auth::user();
         // return view('profile', ['user' => $user]);
-        return $user;
+        return view('profile', ['user' => $user]);
     }
 
     /**

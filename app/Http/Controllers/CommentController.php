@@ -5,14 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Validation\Rules;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
-
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+
+    public function commentPost($request)
+    {
+        $this->store($request);
+        return route('index.comment');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +26,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::orderBy('created_at', 'desc')->paginate(10);
+        $comments = Comment::orderBy('created_at', 'desc')->paginate(15);
+        // $comments = Comment::orderBy('created_at', 'desc')->simplePaginate(10);
         return view('comment', ['comments' => $comments]);
+        // return $comments;
     }
 
     /**
@@ -42,15 +50,14 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
+        $validated = $request->validated();
+        dd($errors);
 
-        $comment = Comment::create([
-            'comment' => $request->comment,
+        Comment::create([
+            'comment' => $validated['comment'],
             'user_id' => Auth::user()->id,
         ]);
-
-
-        // リダイレクトで既存スレッドを更新
-        return redirect()->route('api.comment');
+        return back();
     }
 
     /**
@@ -95,6 +102,7 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+        return back();
     }
 }

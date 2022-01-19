@@ -22,11 +22,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // APITokenテスト用
-Route::middleware('auth:sanctum')->get('/Profile', [UserController::class, 'index']);
+// Route::middleware('auth:sanctum')->get('/profile', [UserController::class, 'index'])->name('profile');
+
+//comment一覧
+Route::middleware('auth:sanctum')->get('/allcomment', [CommentController::class, 'index']);
 
 //comment投稿
-Route::middleware('auth:sanctum')->post('comment', [CommentController::class, 'store']);
+Route::middleware('auth:sanctum')->post('/comment', [CommentController::class, 'store'])->name('comment.store');
 
-Route::middleware('auth:sanctum')->get('comment', [CommentController::class, 'index'])->name('api.comment');
-    // ->only('store');
-// $token = $request->user()->createToken();
+//comment削除
+Route::middleware('auth:sanctum')->delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
+
+//coment投稿後、一覧表示
+// Route::middleware('auth:sanctum')->post('/postcomment',function (Request $request) {
+//     [CommentController::class, 'store']
+//     return $request->user();
+// }); 
+// ->get('/allcomment', [CommentController::class, 'index'])
+// ->view('comment');
+
+// Route::middleware('auth:sanctum')->get('/showcomment', [CommentController::class, 'index'])->name('api.comment');
