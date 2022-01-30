@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 class StoreCommentRequest extends FormRequest
 {
     /**
@@ -27,5 +30,23 @@ class StoreCommentRequest extends FormRequest
         return [
             'comment' => 'required|max:255',
         ];
+    }
+
+    /**
+     * @Override
+     * 勝手にリダイレクトさせない
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     */
+    protected function failedValidation(Validator $validator)
+    {
+    }
+
+    /**
+     * バリデータを取得する
+     * @return  \Illuminate\Contracts\Validation\Validator  $validator
+     */
+    public function getValidator()
+    {
+        return $this->validator;
     }
 }

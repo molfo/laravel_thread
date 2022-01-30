@@ -37,29 +37,21 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         // 作成済みのAPIトークンを削除
-        if ($user->tokens()) {
-            $user->tokens()->delete();
-        }
+        // if ($user->tokens()) {
+        //     $user->tokens()->delete();
+        // }
 
         $token = $user->createToken('Laravel Password Grant Client');
-        //return ['token' => $token->plainTextToken];
-        // $userToken = $user->tokens()->latest()->first();
 
         return view('APIToken', [
             'user' => $user,
             'token' => $token->plainTextToken
         ]);
 
-        //$password = $request->input('password');
-        //$user = DB::table('users')->where('password', $password)->first();
-
         //公式より
         //$token = $request->user()->createToken($request->token_name);
 
-        //$response = ['test' => $request->User()];
-        //$response = ['token' => $token->plainTextToken];
-
-        //return redirect()->intended(RouteServiceProvider::HOME);
+        // return redirect()->intended(RouteServiceProvider::HOME);
         // return response($response, 200);
 
     }

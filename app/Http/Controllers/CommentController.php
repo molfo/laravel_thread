@@ -5,20 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
-use Illuminate\Validation\Rules;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\Http\Request;
+// use App\Http\Controllers\Auth\Validation\Rules;
 
 class CommentController extends Controller
 {
 
-    public function commentPost($request)
-    {
-        $this->store($request);
-        return route('index.comment');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -50,14 +44,22 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        $validated = $request->validated();
-        dd($errors);
+        // return dd($request);
+        // $validated = $request->safe()->only(['comment']);
 
+        // バリデータ取得
+        $validator = $request->getValidator();
+        // 以後Validatorファサードと同じように使える
+        if ($validator->fails()) {
+            return redirect('index.comment')
+                ->withErrors($validator)
+                ->withInput();
+        }
         Comment::create([
-            'comment' => $validated['comment'],
+            'comment' => $validator['comment'],
             'user_id' => Auth::user()->id,
         ]);
-        return back();
+        return redirect()->route('index.comment');
     }
 
     /**
@@ -103,6 +105,6 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
-        return back();
+        return redirect()->route('index.comment');
     }
 }

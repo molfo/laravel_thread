@@ -23,10 +23,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/comment', [CommentController::class, 'index'])
-    ->middleware(['auth'])->name('index.comment');
+Route::get('/comment', [CommentController::class, 'index'])->middleware(['auth'])->name('index.comment');
 
-Route::get('/profile', [UserController::class, 'index'])
-    ->middleware(['auth'])->name('profile');
+Route::get('/profile', [UserController::class, 'index'])->middleware(['auth'])->name('profile');
 
 require __DIR__ . '/auth.php';
