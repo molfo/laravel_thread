@@ -27,4 +27,6 @@ Route::get('/comment', [CommentController::class, 'index'])->middleware(['auth']
 
 Route::get('/profile', [UserController::class, 'index'])->middleware(['auth'])->name('profile');
 
+
+
 require __DIR__ . '/auth.php';

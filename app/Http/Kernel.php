@@ -3,9 +3,17 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Routing\Router;
+use Illuminate\Contracts\Foundation\Application;
 
 class Kernel extends HttpKernel
 {
+
+    public function __construct(Application $app, Router $router)
+    {
+        parent::__construct($app, $router);
+        $this->prependToMiddlewarePriority(\App\Http\Middleware\ForceJsonResponse::class);
+    }
     /**
      * The application's global HTTP middleware stack.
      *
@@ -41,7 +49,6 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
@@ -49,6 +56,11 @@ class Kernel extends HttpKernel
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Session\Middleware\StartSession::class,
+            //csrf-tokenをapiルートに追加
+            // \App\Http\Middleware\ForceJsonResponse::class,
+            // 以下追加：webのセッション
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         ],
     ];
 
@@ -69,5 +81,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        //csrf-tokenをapiルートに追加
+        'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
     ];
 }

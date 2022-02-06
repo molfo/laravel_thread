@@ -59,7 +59,7 @@ class CommentController extends Controller
             'comment' => $validator['comment'],
             'user_id' => Auth::user()->id,
         ]);
-        return redirect()->route('index.comment');
+        return back();
     }
 
     /**
@@ -105,6 +105,16 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
+
+        // if ($comment) {
+        //     return response()->json([
+        //         'message' => 'Comment deleted successfully',
+        //     ], 200);
+        // } else {
+        //     return response()->json([
+        //         'message' => 'Comment not found',
+        //     ], 404);
+        // }
         return redirect()->route('index.comment');
     }
 }
