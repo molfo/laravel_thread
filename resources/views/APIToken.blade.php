@@ -28,8 +28,28 @@
                     <li>Email : {{$user->email}}</li>
                     <li>Token : {{$token}}</li>
                 </ul>
+                <br>
+                <div id="tec_message"></div>
             </div>
         </div>
     </div>
 </div>
+<!-- Script for save bearer token in local storage -->
+<script language="javascript" type="text/javascript">
+    var message = "";
+    if (!window.localStorage) {
+        message = "Tokenをローカルストレージに保存できませんでした";
+        console.log(`tec_message= ${message}`);
+        document.getElementById("tec_message").innerHTML = message;
+    } else {
+        window.localStorage.removeItem('bearer_token');
+        const bearer_token = @json($token);
+        // var bearer_token = document.getElementById("bearer_token").value;
+        console.log(`bearer_token = ${bearer_token}`);
+        window.localStorage.setItem('bearer_token', bearer_token);
+        message = "Tokenをローカルストレージに保存しました";
+        console.log(`tec_message= ${message}`);
+        document.getElementById("tec_message").innerHTML = message;
+    }
+</script>
 @endsection

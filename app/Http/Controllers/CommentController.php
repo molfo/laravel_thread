@@ -21,9 +21,7 @@ class CommentController extends Controller
     public function index()
     {
         $comments = Comment::orderBy('created_at', 'desc')->paginate(15);
-        // $comments = Comment::orderBy('created_at', 'desc')->simplePaginate(10);
         return view('comment', ['comments' => $comments]);
-        // return $comments;
     }
 
     /**
@@ -44,21 +42,19 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        // return dd($request);
+        // バリデータ取得
+        $validated = $request->validated();
         // $validated = $request->safe()->only(['comment']);
 
-        // バリデータ取得
-        $validator = $request->getValidator();
-        // 以後Validatorファサードと同じように使える
-        if ($validator->fails()) {
-            return redirect('index.comment')
-                ->withErrors($validator)
-                ->withInput();
-        }
+        $display_nos = Comment::withTrashed()->get()->count();
+
         Comment::create([
-            'comment' => $validator['comment'],
+            'display_no' => $display_nos + 1,
             'user_id' => Auth::user()->id,
+            'comment' => $validated['comment'],
+
         ]);
+
         return back();
     }
 
@@ -93,7 +89,17 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        // バリデータ取得
+        $validated = $request->validated();
+        $comment = Comment::find($comment->id);
+        //commentの変更がなかった場合、変更せずリダイレクト
+        if ($validated['comment'] == $comment->comment) {
+            return back();
+        }
+        //コメントを書き換え
+        $comment->update(['comment' => $validated['comment']]);
+
+        return back();
     }
 
     /**
@@ -105,16 +111,6 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
-
-        // if ($comment) {
-        //     return response()->json([
-        //         'message' => 'Comment deleted successfully',
-        //     ], 200);
-        // } else {
-        //     return response()->json([
-        //         'message' => 'Comment not found',
-        //     ], 404);
-        // }
         return redirect()->route('index.comment');
     }
 }

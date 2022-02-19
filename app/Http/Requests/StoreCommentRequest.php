@@ -28,7 +28,7 @@ class StoreCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'required|max:255',
+            'comment' => 'required',
         ];
     }
 
@@ -37,16 +37,16 @@ class StoreCommentRequest extends FormRequest
      * 勝手にリダイレクトさせない
      * @param  \Illuminate\Contracts\Validation\Validator  $validator
      */
-    protected function failedValidation(Validator $validator)
-    {
-    }
+    // protected function failedValidation(Validator $validator)
+    // {
+    // }
 
     /**
      * バリデータを取得する
      * @return  \Illuminate\Contracts\Validation\Validator  $validator
      */
-    public function getValidator()
-    {
-        return $this->validator;
-    }
+    // public function getValidator()
+    // {
+    //     return $this->validator;
+    // }
 }

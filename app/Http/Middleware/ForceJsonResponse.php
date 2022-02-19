@@ -17,9 +17,9 @@ class ForceJsonResponse
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
+        $token = $request->input('bearer_token');
         $request->headers->set('Accept', 'application/json');
-        // $request->headers->set('Authorization', 'Bearer ' . $accessToken);
+        $request->headers->set('Authorization', 'Bearer ' . $token);
         return $next($request);
     }
 }

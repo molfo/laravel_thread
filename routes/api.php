@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Api\ApiCommentController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,11 +27,11 @@ Route::group(['middleware' => ['json.response']], function () {
     // Route::middleware('auth:sanctum')->get('/profile', [UserController::class, 'index'])->name('profile');
 
     //comment一覧
-    Route::middleware('auth:sanctum')->get('/allcomment', [CommentController::class, 'index']);
+    // Route::middleware('auth:sanctum')->get('/allcomment', [CommentController::class, 'index']);
 
     //comment投稿
-    Route::middleware('auth:sanctum')->post('/comment', [CommentController::class, 'store'])->name('comment.store');
+    Route::middleware('auth:sanctum')->post('/apicomment', ApiCommentController::class)->name('api.comment.store');
 
-    //comment削除
-    Route::middleware('auth:sanctum')->delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
+    // //comment削除
+    // Route::middleware('auth:sanctum')->delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 });

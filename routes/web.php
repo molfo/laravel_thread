@@ -25,7 +25,16 @@ Route::get('/dashboard', function () {
 
 Route::get('/comment', [CommentController::class, 'index'])->middleware(['auth'])->name('index.comment');
 
+Route::post('/comment', [CommentController::class, 'store'])->middleware(['auth'])->name('comment.store');
+
+Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->middleware(['auth'])->name('comment.destroy');
+
 Route::get('/profile', [UserController::class, 'index'])->middleware(['auth'])->name('profile');
+
+
+
+// test用
+// Route::post('/test', [CommentController::class, 'store'])->middleware(['auth'])->name('testdd');
 
 
 

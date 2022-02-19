@@ -59,8 +59,9 @@ class Kernel extends HttpKernel
             //csrf-tokenをapiルートに追加
             // \App\Http\Middleware\ForceJsonResponse::class,
             // 以下追加：webのセッション
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            // \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            // \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+
         ],
     ];
 
@@ -81,7 +82,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        //csrf-tokenをapiルートに追加
+        //bearer-tokenをapiルートに追加
         'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
     ];
 }
