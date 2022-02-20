@@ -30,6 +30,7 @@ Route::post('/comment', [CommentController::class, 'store'])->middleware(['auth'
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->middleware(['auth'])->name('comment.destroy');
 
 Route::get('/profile', [UserController::class, 'index'])->middleware(['auth'])->name('profile');
+Route::PUT('/user/{user}', [UserController::class, 'update'])->middleware(['auth'])->name('user.update');
 
 
 

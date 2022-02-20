@@ -23,26 +23,12 @@
                 <div class="mb-2">
                     <label for="comment">Comment</label><br>
                     <textarea id="comment" name="comment" cols="30" rows="4" value="{{ old('comment') }}" class="@error('comment') text-red-500 @enderror"></textarea>
-                    <!-- <input type="text" value="{{ old('comment') }}" class="@error('comment') text-red-500 @enderror"> -->
 
                     @error('comment')
                     <div class="alert alert-error mb-4">
                         {{$message}}
                     </div>
                     @enderror
-
-                    <!-- @if(session('success_message'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
-                        <strong>Successful!</strong> {{ session('success_message') }}
-                    </div>
-                    @endif
-                    @if(session('error_message'))
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
-                        <strong>Error!</strong> {{ session('error_message') }}
-                    </div>
-                    @endif-->
 
                     <button type="submit" class="flex justify-end pb-2 font-medium rounded-md border bg-blue-700">
                         書き込む

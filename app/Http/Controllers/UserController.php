@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -52,7 +53,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        // 
     }
 
     /**
@@ -69,13 +70,20 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateUserRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        // バリデータ取得
+        $validated = $request->validated();
+        $user = User::find($id);
+
+        //ユーザーネームを書き換え
+        $user->update(['name' => $validated['name']]);
+
+        return back();
     }
 
     /**

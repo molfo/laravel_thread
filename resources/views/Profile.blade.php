@@ -21,8 +21,26 @@
             <div class="p-6 bg-white border-b border-gray-200">
                 <ul>
                     <li>Username : {{$user->name}}</li>
+
                     <li>Email : {{$user->email}}</li>
                 </ul>
+                <!-- Username edit form -->
+                <form action="{{ route('user.update',$user->id)}}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-2">
+                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" class="@error('name') text-red-500 @enderror">
+                        @error('name')
+                        <div class="alert alert-error mb-4">
+                            {{$message}}
+                        </div>
+                        @enderror
+
+                        <button type="submit" class="flex justify-end pb-2 font-medium rounded-md border bg-blue-700">
+                            Username Edit
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
