@@ -13,13 +13,13 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <!-- <a href="{{route('index.comment')}}" class="p-3"> -->
                     <x-nav-link :href="route('index.comment')" :active="request()->routeIs('index.comment')">
-                        {{ __('Commnets') }}
+                        {{ __('コメント') }}
                     </x-nav-link>
                     <!-- </a> -->
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('profile')" :active="request()->routeIs('profile')">
-                        {{ __('Profile') }}
+                        {{ __('プロフィール') }}
                     </x-nav-link>
                 </div>
 

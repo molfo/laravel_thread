@@ -31,11 +31,7 @@ Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->midd
 
 Route::get('/profile', [UserController::class, 'index'])->middleware(['auth'])->name('profile');
 
-
-
 // test用
 // Route::post('/test', [CommentController::class, 'store'])->middleware(['auth'])->name('testdd');
-
-
 
 require __DIR__ . '/auth.php';

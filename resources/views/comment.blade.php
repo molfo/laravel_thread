@@ -22,11 +22,11 @@
                 @csrf
                 <div class="mb-2">
                     <label for="comment">Comment</label><br>
-                    <textarea id="comment" name="comment" cols="30" rows="4" value="{{ old('comment') }}" class="@error('comment') text-red-500 @enderror"></textarea>
+                    <textarea id="comment" name="comment" cols="30" rows="4" value="{{ old('comment') }}" class="@error('comment') @enderror"></textarea>
                     <!-- <input type="text" value="{{ old('comment') }}" class="@error('comment') text-red-500 @enderror"> -->
 
                     @error('comment')
-                    <div class="alert alert-error mb-4">
+                    <div class="alert alert-error mb-4 text-red-500">
                         {{$message}}
                     </div>
                     @enderror
@@ -44,7 +44,7 @@
                     </div>
                     @endif-->
 
-                    <button type="submit" class="flex justify-end pb-2 font-medium rounded-md border bg-blue-700">
+                    <button type="submit" class="flex justify-end pb-2 font-medium rounded-md border">
                         書き込む
                     </button>
                 </div>
@@ -56,7 +56,7 @@
                 <div class="mb-2">
                     <label for="api-comment">API用コメントフォーム</label><br>
                     <textarea id="api-comment" name="api-comment" cols="30" rows="4"></textarea>
-                    <button type="submit" class="flex justify-end pb-2 font-medium rounded-md border bg-blue-700">
+                    <button type="submit" class="flex justify-end pb-2 font-medium rounded-md border text-blue-700">
                         API取得
                     </button>
                 </div>
@@ -93,7 +93,7 @@
                 <form action="{{route('comment.destroy',$comment)}}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="inline-flex justify-end rounded-md border bg-blue-700">
+                    <button type="submit" class="inline-flex justify-end rounded-md border text-red-500">
                         削除
                     </button>
                 </form>
